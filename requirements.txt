@@ -1,0 +1,6 @@
+streamlit
+google-genai
+pydantic
+python-pptx
+python-docx
+pillow
