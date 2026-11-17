@@ -154,19 +154,21 @@ with st.sidebar:
     st.header("🔑 1. Setup & Model Tier")
     api_key = st.text_input("Gemini API Key", type="password", value=os.environ.get("GEMINI_API_KEY", ""), help="Paste your key from aistudio.google.com/apikey")
     
-    # Model selection offering Flash, Pro, and Argon tiers
+# Model selection offering Free-Tier Flash + Paid Gemini 4 / Pro tiers + Custom override
     model_choice = st.selectbox(
         "Select Gemini Model Tier",
         options=[
-            "gemini-4-argon (Flagship Reasoning)",
-            "gemini-3.8-flash (Fast & Intelligent)",
-            "gemini-3.1-pro-preview (Deep Multimodal Pro)"
+            "gemini-3.8-flash (Free Tier & Fast Workhorse)",
+            "gemini-4-hydrogen (Newest Gemini 4 Fast Tier)",
+            "gemini-4-argon (Gemini 4 Frontier Reasoning - Paid)",
+            "gemini-4-carbon (Gemini 4 Max Depth - Paid)",
+            "gemini-3.1-pro-preview (Gemini 3 Pro Preview - Paid)",
         ],
         index=0,
-        help="Choose between Argon (deepest enterprise logic), Flash (fast everyday work), or Pro (multimodal reasoning)."
+        help="gemini-3.8-flash works on Free Tier API keys. Argon, Carbon, and Pro require a billed Google AI Studio key."
     )
-    # Extract the exact API model identifier string from the selection
-    selected_model_id = model_choice.split(" ")[0]
+    custom_model = st.text_input("Or type a custom Model ID (Optional)", placeholder="e.g., gemini-3.5-flash-lite")
+    selected_model_id = custom_model.strip() if custom_model.strip() else model_choice.split(" ")[0]
 
     st.header("📄 2. Upload Documents")
     jd_file = st.file_uploader("Upload Job Description (Required)", type=["pdf", "pptx", "docx", "png", "jpg", "jpeg", "txt"])
